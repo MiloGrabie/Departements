@@ -1,15 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async() => {
     const excelFileInput = document.getElementById('excelFile');
-    const svgFileInput = document.getElementById('svgFile');
     const processBtn = document.getElementById('processBtn');
     const mapContainer = document.getElementById('map-container');
 
     let excelData = null;
     let svgContent = null;
 
-    // Enable process button only when both files are selected
+    // Load SVG file automatically
+    try {
+        const response = await fetch('./departements_chiffre_couleur.svg');
+        if (!response.ok) throw new Error('SVG file not found');
+        svgContent = await response.text();
+        mapContainer.innerHTML = svgContent;
+    } catch (error) {
+        console.error('Error loading SVG file:', error);
+        mapContainer.innerHTML = '<p class="text-danger">Erreur lors du chargement de la carte SVG</p>';
+    }
+
+    // Enable process button only when Excel file is selected
     function updateProcessButton() {
-        processBtn.disabled = !(excelData && svgContent);
+        processBtn.disabled = !excelData;
     }
 
     // Handle Excel file upload
@@ -26,22 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error reading Excel file:', error);
             alert('Erreur lors de la lecture du fichier Excel');
-        }
-    });
-
-    // Handle SVG file upload
-    svgFileInput.addEventListener('change', async(e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        try {
-            svgContent = await file.text();
-            // Display the initial SVG
-            mapContainer.innerHTML = svgContent;
-            updateProcessButton();
-        } catch (error) {
-            console.error('Error reading SVG file:', error);
-            alert('Erreur lors de la lecture du fichier SVG');
         }
     });
 
