@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte des Départements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        
+        #map-container {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: white;
+        }
+        
+        #map-svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .upload-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Carte des Départements</h1>
+
+        <div class="upload-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="excelFile" class="form-label">Fichier Excel (.xlsx)</label>
+                        <input class="form-control" type="file" id="excelFile" accept=".xlsx">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="svgFile" class="form-label">Fichier SVG</label>
+                        <input class="form-control" type="file" id="svgFile" accept=".svg">
+                    </div>
+                </div>
+            </div>
+            <button id="processBtn" class="btn btn-primary" disabled>Traiter les fichiers</button>
+        </div>
+
+        <div id="map-container" class="text-center">
+            <p class="text-muted">Veuillez charger un fichier SVG pour voir la carte</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
